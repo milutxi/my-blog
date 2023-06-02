@@ -22,7 +22,7 @@ const mockData = [
 export default function Blog() {
   return (
     <section>
-      <Heading>Blog</Heading>
+      <Heading>Blog by me</Heading>
       {mockData.map((post) => (
         <Link
           key={post.slug}
