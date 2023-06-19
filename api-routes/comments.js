@@ -17,11 +17,17 @@ export const addComment = async (_, {arg: newComment}) => {
   .insert (newComment)
   .select()
   .single();
-  
+
   return{data, error, status};
   //Handle add comment here
 };
 
-export const removeComment = () => {
+export const removeComment = async (_, {arg: id}) => {
+  const {data, error, status} = await supabase
+  .from('tb_comments')
+  .delete()
+  .eq('id', id);
+
+  return {data, error, status}
   //Handle remove comment here
 };

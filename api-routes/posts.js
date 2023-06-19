@@ -58,9 +58,9 @@ export const editPost = async (_, {arg: editedPost}) => {
   let image = editedPost?.image ?? "";
 
   const isNewImage = typeof image === "object" && image !== null;
-  
+  console.log(image)
   if(isNewImage) {
-    const {publicUrl, error} = await uploadImage(newPost?.image);
+    const {publicUrl, error} = await uploadImage(editedPost?.image);
 
     if(!error) {
       image = publicUrl;

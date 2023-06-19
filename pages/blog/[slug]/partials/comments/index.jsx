@@ -11,7 +11,6 @@ export default function Comments({ postId }) {
     postId ? commentsCacheKey : null,
     () => getComments({postId})
     );
-  console.log (data);
 
   if (error) return <div> failed to load</div>
   if (isLoading) return <div>loading...</div>
