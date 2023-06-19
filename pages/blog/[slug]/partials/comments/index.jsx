@@ -1,31 +1,25 @@
 import styles from "./comments.module.css";
 import Comment from "../comment";
+import { getComments } from "../../../../../api-routes/comments";
+import useSWR from "swr";
 
-const mockData = [
-  {
-    id: "1",
-    comment: "Love this post!",
-    createdAt: "2022-02-15",
-    author: "John Doe",
-  },
-  {
-    id: "2",
-    comment: "This is indeed a good community fit!",
-    createdAt: "2022-02-12",
-    author: "Jane Doe",
-  },
-];
+const commentsCacheKey = "userComments"
 
 export default function Comments({ postId }) {
-  /* 
-  Here is a good place to fetch the comments from the database that has a 
-  foreign key relation to the post.
-  */
+
+  const { data: {data=[]}={}, error, isLoading } = useSWR(
+    postId ? commentsCacheKey : null,
+    () => getComments({postId})
+    );
+  console.log (data);
+
+  if (error) return <div> failed to load</div>
+  if (isLoading) return <div>loading...</div>
 
   return (
     <div className={styles.container}>
       <h2>Comments</h2>
-      {mockData.map((comment) => (
+      {data?.map((comment) => (
         <Comment key={comment.id} {...comment} />
       ))}
     </div>
