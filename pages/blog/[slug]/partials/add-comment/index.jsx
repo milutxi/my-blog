@@ -4,21 +4,30 @@ import Input from "@components/input";
 import Label from "@components/label";
 import TextArea from "@components/text-area";
 import styles from "./add-comment.module.css";
+import { addComment } from "../../../../../api-routes/comments";
+import { commentsCacheKey } from "../comments";
+import useSWRMutation from "swr/mutation";
 
 export default function AddComment({ postId }) {
+
   const formRef = useRef(); // create a reference
 
-  const handleOnSubmit = (event) => {
+  const {trigger : addCommentTrigger} = useSWRMutation(commentsCacheKey, addComment);
+
+
+  const handleOnSubmit = async (event) => {
     event.preventDefault();
     // Alternative way to get the form data
     const formData = new FormData(event.target);
 
     const { author, comment } = Object.fromEntries(formData);
 
-    /* 
-      Perhaps a good place to add a comment to the database that is associated with the blog post 😙
-      */
-    console.log({ author, comment, postId });
+    const newComment = {
+      author,
+      comment,
+      fk_post_id: postId,
+    };
+     await addCommentTrigger(newComment);
 
     // Reset the form after submission?
     formRef.current.reset();

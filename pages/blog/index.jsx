@@ -12,8 +12,6 @@ import useSWR from "swr";
 export default function Blog() {
 
   const { data: {data = []} = {}, error, isLoading } = useSWR(cacheKey, getPosts,)
-   
-  //const {trigger: addTrigger, isMutating } = useSWRMutation ( cacheKey, addPost,)
   
   if (error) return <div>failed to load</div>
   if (isLoading) return <div>loading...</div>

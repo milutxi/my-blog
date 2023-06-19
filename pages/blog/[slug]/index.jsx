@@ -10,7 +10,6 @@ import useSWRMutation from "swr/mutation";
 
 import { cacheKey, getPost, removePost } from "../../../api-routes/posts";
 
-
 export default function BlogPost() {
   const router = useRouter();
 
@@ -21,7 +20,6 @@ export default function BlogPost() {
     () => getPost ({slug})
     );
         
-
   const { trigger: deletTrigger } = useSWRMutation(cacheKey, removePost);
 
   const handleDeletePost = async() => {
@@ -36,7 +34,6 @@ export default function BlogPost() {
   const handleEditPost = () => {
     router.push(`/blog/${slug}/edit`);
   };
-
 
   return (
     <>

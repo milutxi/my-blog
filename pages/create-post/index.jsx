@@ -25,7 +25,7 @@ export default function CreatePost() {
     if (!error) {
       router.push(`/blog/${slug}`);
     }
-  };
+    };
 
   return (
     <BlogEditor
